@@ -10,16 +10,26 @@
         </div>
     @endif
 
-    <h3>Filtrar por Estilo</h3>
-    <form action="/home" method="GET">
-        @foreach($styles as $style)
-            <label>
-                <input type="checkbox" name="styles[]" value="{{ $style }}" 
-                {{ request('styles') && in_array($style, request('styles')) ? 'checked' : '' }}>
-                {{ $style }}
-            </label>
-        @endforeach
-        <button type="submit" style="margin-left: 10px;">Filtrar</button>
+    <!-- Formulario para filtrar canciones por estilo -->
+    <form method="GET" action="{{ url('/home') }}" style="margin-bottom: 1rem;">
+        <label for="styles">Filtrar por estilo:</label>
+        <div>
+            @foreach($styles as $style)
+                <div style="display: inline-block; margin-right: 10px;">
+                    <input 
+                        type="checkbox" 
+                        name="styles[]" 
+                        id="style-{{ $style }}" 
+                        value="{{ $style }}" 
+                        {{ request('styles') && in_array($style, request('styles')) ? 'checked' : '' }}
+                    >
+                    <label for="style-{{ $style }}">{{ $style }}</label>
+                </div>
+            @endforeach
+        </div>
+        <button type="submit" style="padding: 0.5rem; background-color: #007bff; color: white; border: none; border-radius: 5px; margin-top: 1rem;">
+            Filtrar
+        </button>
     </form>
 
     <h3>Lista de Canciones</h3>
@@ -47,11 +57,16 @@
                         <form action="/delete" method="POST" style="display: inline;">
                             @csrf
                             <input type="hidden" name="id" value="{{ $song->id }}">
-                            <button type="submit" style="background-color: red; color: white; border: none; cursor: pointer;">Eliminar</button>
+                            <button type="submit" style="background-color: red; color: white; border: none; padding: 5px; cursor: pointer;">Eliminar</button>
                         </form>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <!-- Enlaces de paginación -->
+    <div class="d-flex justify-content-center mt-4">
+        {{ $songs->appends(['styles' => request('styles')])->links('pagination::bootstrap-5') }}
+    </div>
 @endsection

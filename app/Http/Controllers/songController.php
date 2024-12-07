@@ -13,10 +13,10 @@ class SongController extends Controller
         // Recuperar todos los estilos únicos de la base de datos
         $styles = Song::select('style')->distinct()->pluck('style');
 
-        // Filtrar canciones si hay estilos seleccionados
-        $songs = Song::when($request->styles, function($query) use ($request) {
-        return $query->whereIn('style', $request->styles);
-        })->get();
+        // Filtrar canciones si hay estilos seleccionados y agregar paginación
+        $songs = Song::when($request->styles, function ($query) use ($request) {
+            return $query->whereIn('style', $request->styles);
+        })->paginate(5); // Paginar con 5 canciones por página
 
         // Pasar datos a la vista
         return view('home', compact('songs', 'styles'));
@@ -63,7 +63,7 @@ class SongController extends Controller
     {
         // Validar los datos enviados desde el formulario
         $validatedData = $request->validate([
-            'id' => 'required|exists:song,id', // Cambiar a la tabla correcta en singular
+            'id' => 'required|exists:songs,id', // Cambiar 'song' a 'songs' para reflejar la tabla plural
             'title' => 'required|string|max:255',
             'group' => 'required|string|max:255',
             'style' => 'required|string|max:50',
@@ -74,12 +74,7 @@ class SongController extends Controller
         $song = Song::findOrFail($validatedData['id']); // Encuentra la canción o lanza un error 404 si no existe
 
         // Actualizar la canción con los datos validados
-        $song->update([
-            'title' => $validatedData['title'],
-            'group' => $validatedData['group'],
-            'style' => $validatedData['style'],
-            'rating' => $validatedData['rating'],
-        ]);
+        $song->update($validatedData);
 
         // Redirigir a la página principal con un mensaje de éxito
         return redirect('/home')->with('success', '¡Canción actualizada correctamente!');
@@ -90,7 +85,7 @@ class SongController extends Controller
     {
         // Validar el ID enviado desde el formulario
         $validatedData = $request->validate([
-            'id' => 'required|exists:song,id', // Verifica que el ID exista en la tabla `song`
+            'id' => 'required|exists:songs,id', // Cambiar 'song' a 'songs' para reflejar la tabla plural
         ]);
 
         // Buscar la canción por ID y eliminarla
