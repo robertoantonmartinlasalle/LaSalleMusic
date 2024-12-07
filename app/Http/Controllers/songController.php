@@ -13,13 +13,8 @@ class SongController extends Controller
         // Recuperar todos los estilos únicos de la base de datos
         $styles = Song::select('style')->distinct()->pluck('style');
 
-        // Debug: Verificar si los estilos están llegando correctamente desde el formulario
-        // dd($request->styles);
-
         // Filtrar canciones si hay estilos seleccionados y agregar paginación
         $songs = Song::when($request->styles, function ($query) use ($request) {
-            // Debug: Mostrar los estilos seleccionados en el filtro
-            // dd($request->styles);
             return $query->whereIn('style', $request->styles);
         })->paginate(5); // Paginar con 5 canciones por página
 
@@ -39,10 +34,14 @@ class SongController extends Controller
         return view('add'); // Apunta a add.blade.php
     }
 
-    // Muestra el formulario para actualizar canciones
-    public function edit()
+    // Muestra el formulario para actualizar canciones (con datos específicos o vacío)
+    public function edit($id = null)
     {
-        return view('update'); // Apunta a update.blade.php
+        // Si se proporciona un ID, busca la canción. De lo contrario, deja el formulario vacío.
+        $song = $id ? Song::findOrFail($id) : null;
+
+        // Pasar la canción (si existe) a la vista de edición
+        return view('update', compact('song'));
     }
 
     // Guarda una nueva canción en la base de datos
@@ -68,7 +67,7 @@ class SongController extends Controller
     {
         // Validar los datos enviados desde el formulario
         $validatedData = $request->validate([
-            'id' => 'required|exists:song,id', // Asegurarse de que la tabla sea plural
+            'id' => 'required|exists:song,id', 
             'title' => 'required|string|max:255',
             'group' => 'required|string|max:255',
             'style' => 'required|string|max:50',
@@ -76,7 +75,7 @@ class SongController extends Controller
         ]);
 
         // Buscar la canción por ID
-        $song = Song::findOrFail($validatedData['id']); // Encuentra la canción o lanza un error 404 si no existe
+        $song = Song::findOrFail($validatedData['id']);
 
         // Actualizar la canción con los datos validados
         $song->update($validatedData);
@@ -94,8 +93,8 @@ class SongController extends Controller
         ]);
 
         // Buscar la canción por ID y eliminarla
-        $song = Song::findOrFail($validatedData['id']); // Encuentra la canción o lanza un error 404 si no existe
-        $song->delete(); // Elimina la canción
+        $song = Song::findOrFail($validatedData['id']);
+        $song->delete();
 
         // Redirigir a la página principal con un mensaje de éxito
         return redirect('/home')->with('success', '¡Canción eliminada correctamente!');

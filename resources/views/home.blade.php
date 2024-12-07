@@ -62,7 +62,7 @@
                     <td>{{ $song->style }}</td>
                     <td>{{ $song->rating }}</td>
                     <td>
-                        <a href="/update?id={{ $song->id }}" class="btn btn-sm btn-primary">Editar</a>
+                        <a href="/update/{{ $song->id }}" class="btn btn-sm btn-primary">Editar</a>
                         <form action="/delete" method="POST" class="d-inline">
                             @csrf
                             <input type="hidden" name="id" value="{{ $song->id }}">
