@@ -8,9 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <header style="background-color: #f8f9fa; padding: 1rem; text-align: center;">
+    <header class="bg-primary text-white py-4 text-center">
         <h1>Gestor de Canciones</h1>
+        <p>Gestiona tu música favorita con estilo</p>
     </header>
+
     <!-- Mensajes de éxito y error -->
     <div style="padding: 1rem;">
         @if (session('success'))
@@ -30,16 +32,17 @@
     </div>
     <div style="display: flex;">
         <!-- Menú lateral -->
-        <aside style="width: 20%; background-color: #343a40; color: white; padding: 1rem;">
+        <aside class="bg-dark text-white p-3">
             <nav>
-                <ul style="list-style-type: none; padding: 0;">
-                    <li><a href="/home" style="color: white; text-decoration: none;">Inicio</a></li>
-                    <li><a href="/contact" style="color: white; text-decoration: none;">Contacto</a></li>
-                    <li><a href="/add" style="color: white; text-decoration: none;">Añadir Canción</a></li>
-                    <li><a href="/update" style="color: white; text-decoration: none;">Actualizar Canción</a></li>
+                <ul class="list-unstyled">
+                    <li class="mb-3"><a href="/home" class="text-white text-decoration-none"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li class="mb-3"><a href="/contact" class="text-white text-decoration-none"><i class="fas fa-envelope"></i> Contacto</a></li>
+                    <li class="mb-3"><a href="/add" class="text-white text-decoration-none"><i class="fas fa-plus"></i> Añadir Canción</a></li>
+                    <li><a href="/update" class="text-white text-decoration-none"><i class="fas fa-edit"></i> Actualizar Canción</a></li>
                 </ul>
             </nav>
         </aside>
+
         <!-- Contenido principal -->
         <main style="width: 80%; padding: 1rem;">
             @yield('content') <!-- Aquí se insertará el contenido dinámico de cada vista -->

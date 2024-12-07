@@ -13,8 +13,13 @@ class SongController extends Controller
         // Recuperar todos los estilos únicos de la base de datos
         $styles = Song::select('style')->distinct()->pluck('style');
 
+        // Debug: Verificar si los estilos están llegando correctamente desde el formulario
+        // dd($request->styles);
+
         // Filtrar canciones si hay estilos seleccionados y agregar paginación
         $songs = Song::when($request->styles, function ($query) use ($request) {
+            // Debug: Mostrar los estilos seleccionados en el filtro
+            // dd($request->styles);
             return $query->whereIn('style', $request->styles);
         })->paginate(5); // Paginar con 5 canciones por página
 
@@ -63,7 +68,7 @@ class SongController extends Controller
     {
         // Validar los datos enviados desde el formulario
         $validatedData = $request->validate([
-            'id' => 'required|exists:song,id', 
+            'id' => 'required|exists:song,id', // Asegurarse de que la tabla sea plural
             'title' => 'required|string|max:255',
             'group' => 'required|string|max:255',
             'style' => 'required|string|max:50',
@@ -85,7 +90,7 @@ class SongController extends Controller
     {
         // Validar el ID enviado desde el formulario
         $validatedData = $request->validate([
-            'id' => 'required|exists:song,id', 
+            'id' => 'required|exists:song,id',
         ]);
 
         // Buscar la canción por ID y eliminarla

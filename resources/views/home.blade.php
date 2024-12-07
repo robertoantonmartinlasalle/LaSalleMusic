@@ -11,59 +11,69 @@
     @endif
 
     <!-- Formulario para filtrar canciones por estilo -->
-    <form method="GET" action="{{ url('/home') }}" style="margin-bottom: 1rem;">
-        <label for="styles">Filtrar por estilo:</label>
-        <div>
-            @foreach($styles as $style)
-                <div style="display: inline-block; margin-right: 10px;">
-                    <input 
-                        type="checkbox" 
-                        name="styles[]" 
-                        id="style-{{ $style }}" 
-                        value="{{ $style }}" 
-                        {{ request('styles') && in_array($style, request('styles')) ? 'checked' : '' }}
-                    >
-                    <label for="style-{{ $style }}">{{ $style }}</label>
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Filtrar por estilo</h5>
+            <form method="GET" action="{{ url('/home') }}">
+                <div class="row">
+                    @foreach($styles as $style)
+                        <div class="col-12 col-md-4">
+                            <div class="form-check">
+                                <input 
+                                    class="form-check-input" 
+                                    type="checkbox" 
+                                    name="styles[]" 
+                                    id="style-{{ $style }}" 
+                                    value="{{ $style }}" 
+                                    {{ request('styles') && in_array($style, request('styles')) ? 'checked' : '' }}
+                                >
+                                <label class="form-check-label" for="style-{{ $style }}">
+                                    {{ $style }}
+                                </label>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-            @endforeach
+                <button type="submit" class="btn btn-primary mt-3">Filtrar</button>
+            </form>
         </div>
-        <button type="submit" style="padding: 0.5rem; background-color: #007bff; color: white; border: none; border-radius: 5px; margin-top: 1rem;">
-            Filtrar
-        </button>
-    </form>
+    </div>
+
+
 
     <h3>Lista de Canciones</h3>
-    <table style="width: 100%; border-collapse: collapse;">
-        <thead>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px;">ID</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">Título</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">Grupo</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">Estilo</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">Rating</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">Acciones</th>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Grupo</th>
+                <th>Estilo</th>
+                <th>Rating</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach($songs as $song)
                 <tr>
-                    <td style="border: 1px solid #ddd; padding: 8px;">{{ $song->id }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px;">{{ $song->title }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px;">{{ $song->group }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px;">{{ $song->style }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px;">{{ $song->rating }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px;">
-                        <a href="/update?id={{ $song->id }}" style="text-decoration: none; color: blue;">Editar</a>
-                        <form action="/delete" method="POST" style="display: inline;">
+                    <td>{{ $song->id }}</td>
+                    <td>{{ $song->title }}</td>
+                    <td>{{ $song->group }}</td>
+                    <td>{{ $song->style }}</td>
+                    <td>{{ $song->rating }}</td>
+                    <td>
+                        <a href="/update?id={{ $song->id }}" class="btn btn-sm btn-primary">Editar</a>
+                        <form action="/delete" method="POST" class="d-inline">
                             @csrf
                             <input type="hidden" name="id" value="{{ $song->id }}">
-                            <button type="submit" style="background-color: red; color: white; border: none; padding: 5px; cursor: pointer;">Eliminar</button>
+                            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
                         </form>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
 
     <!-- Enlaces de paginación -->
     <div class="d-flex justify-content-center mt-4">
