@@ -14,7 +14,11 @@ class SongSeeder extends Seeder
      */
     public function run()
     {
+        // Limpiar la tabla antes de insertar
+        DB::table('song')->truncate();
+        
         DB::table('song')->insert([
+            //Canciones de Rock
             ['title' => 'Layla', 'group' => 'Derek and the Dominos', 'style' => 'Rock', 'rating' => 9],
             ['title' => 'Kashmir', 'group' => 'Led Zeppelin', 'style' => 'Rock', 'rating' => 10],
             ['title' => 'November Rain', 'group' => 'Guns N\' Roses', 'style' => 'Rock', 'rating' => 10],
@@ -35,6 +39,7 @@ class SongSeeder extends Seeder
             ['title' => 'With or Without You', 'group' => 'U2', 'style' => 'Rock', 'rating' => 10],
             ['title' => 'All Along the Watchtower', 'group' => 'Jimi Hendrix', 'style' => 'Rock', 'rating' => 10],
             ['title' => 'Hotel California (Live)', 'group' => 'Eagles', 'style' => 'Rock', 'rating' => 9],
+            //Canciones de Blues
             ['title' => 'Boom Boom', 'group' => 'John Lee Hooker', 'style' => 'Blues', 'rating' => 9],
             ['title' => 'Sweet Home Chicago', 'group' => 'Robert Johnson', 'style' => 'Blues', 'rating' => 10],
             ['title' => 'Every Day I Have the Blues', 'group' => 'B.B. King', 'style' => 'Blues', 'rating' => 9],
@@ -55,11 +60,25 @@ class SongSeeder extends Seeder
             ['title' => 'Mannish Boy', 'group' => 'Muddy Waters', 'style' => 'Blues', 'rating' => 10],
             ['title' => 'Me and the Devil Blues', 'group' => 'Robert Johnson', 'style' => 'Blues', 'rating' => 8],
             ['title' => 'Ramblin\' on My Mind', 'group' => 'Robert Johnson', 'style' => 'Blues', 'rating' => 8],
+            //Canciones de Hip Hop
             ['title' => 'Gin and Juice', 'group' => 'Snoop Dogg', 'style' => 'Hip Hop', 'rating' => 9],
             ['title' => 'Alright', 'group' => 'Kendrick Lamar', 'style' => 'Hip Hop', 'rating' => 10],
             ['title' => 'Ms. Jackson', 'group' => 'OutKast', 'style' => 'Hip Hop', 'rating' => 9],
             ['title' => 'Dear Mama', 'group' => '2Pac', 'style' => 'Hip Hop', 'rating' => 10],
             ['title' => 'The Message', 'group' => 'Grandmaster Flash', 'style' => 'Hip Hop', 'rating' => 9],
+            ['title' => 'Lose Yourself', 'group' => 'Eminem', 'style' => 'Hip Hop', 'rating' => 10],
+            ['title' => 'C.R.E.A.M.', 'group' => 'Wu-Tang Clan', 'style' => 'Hip Hop', 'rating' => 9],
+            ['title' => 'N.Y. State of Mind', 'group' => 'Nas', 'style' => 'Hip Hop', 'rating' => 10],
+            ['title' => 'Juicy', 'group' => 'The Notorious B.I.G.', 'style' => 'Hip Hop', 'rating' => 10],
+            ['title' => 'HUMBLE.', 'group' => 'Kendrick Lamar', 'style' => 'Hip Hop', 'rating' => 9],
+            ['title' => 'Sicko Mode', 'group' => 'Travis Scott', 'style' => 'Hip Hop', 'rating' => 9],
+            ['title' => 'Rapper\'s Delight', 'group' => 'The Sugarhill Gang', 'style' => 'Hip Hop', 'rating' => 9],
+            ['title' => 'Stronger', 'group' => 'Kanye West', 'style' => 'Hip Hop', 'rating' => 10],
+            ['title' => 'Hotline Bling', 'group' => 'Drake', 'style' => 'Hip Hop', 'rating' => 8],
+            ['title' => 'Work It', 'group' => 'Missy Elliott', 'style' => 'Hip Hop', 'rating' => 9],
+            ['title' => '99 Problems', 'group' => 'Jay-Z', 'style' => 'Hip Hop', 'rating' => 9],
+            ['title' => 'In Da Club', 'group' => '50 Cent', 'style' => 'Hip Hop', 'rating' => 9],
+            ['title' => 'Shook Ones Pt. II', 'group' => 'Mobb Deep', 'style' => 'Hip Hop', 'rating' => 10],
         ]);
     }
 }

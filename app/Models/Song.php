@@ -14,7 +14,7 @@ class Song extends Model
      *
      * @var string
      */
-    protected $table = 'song'; 
+    protected $table = 'song'; // Se actualizó el nombre de la tabla.
 
     /**
      * The attributes that are mass assignable.
