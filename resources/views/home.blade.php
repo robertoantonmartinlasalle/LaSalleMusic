@@ -10,6 +10,18 @@
         </div>
     @endif
 
+    <h3>Filtrar por Estilo</h3>
+    <form action="/home" method="GET">
+        @foreach($styles as $style)
+            <label>
+                <input type="checkbox" name="styles[]" value="{{ $style }}" 
+                {{ request('styles') && in_array($style, request('styles')) ? 'checked' : '' }}>
+                {{ $style }}
+            </label>
+        @endforeach
+        <button type="submit" style="margin-left: 10px;">Filtrar</button>
+    </form>
+
     <h3>Lista de Canciones</h3>
     <table style="width: 100%; border-collapse: collapse;">
         <thead>
@@ -35,9 +47,7 @@
                         <form action="/delete" method="POST" style="display: inline;">
                             @csrf
                             <input type="hidden" name="id" value="{{ $song->id }}">
-                            <button type="submit" style="background-color: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">
-                                Eliminar
-                            </button>
+                            <button type="submit" style="background-color: red; color: white; border: none; cursor: pointer;">Eliminar</button>
                         </form>
                     </td>
                 </tr>

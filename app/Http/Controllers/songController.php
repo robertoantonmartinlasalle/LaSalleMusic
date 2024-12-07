@@ -8,10 +8,18 @@ use App\Models\Song; // Modelo Song
 class SongController extends Controller
 {
     // Muestra la página principal con la lista de canciones
-    public function index()
+    public function index(Request $request)
     {
-        $songs = Song::all(); // Obtener todas las canciones
-        return view('home', compact('songs')); // Pasar las canciones a la vista
+        // Recuperar todos los estilos únicos de la base de datos
+        $styles = Song::select('style')->distinct()->pluck('style');
+
+        // Filtrar canciones si hay estilos seleccionados
+        $songs = Song::when($request->styles, function($query) use ($request) {
+        return $query->whereIn('style', $request->styles);
+        })->get();
+
+        // Pasar datos a la vista
+        return view('home', compact('songs', 'styles'));
     }
 
     // Muestra la página de contacto
