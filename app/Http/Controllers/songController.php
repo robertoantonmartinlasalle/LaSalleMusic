@@ -63,7 +63,7 @@ class SongController extends Controller
     {
         // Validar los datos enviados desde el formulario
         $validatedData = $request->validate([
-            'id' => 'required|exists:songs,id', // Cambiar 'song' a 'songs' para reflejar la tabla plural
+            'id' => 'required|exists:song,id', 
             'title' => 'required|string|max:255',
             'group' => 'required|string|max:255',
             'style' => 'required|string|max:50',
@@ -85,7 +85,7 @@ class SongController extends Controller
     {
         // Validar el ID enviado desde el formulario
         $validatedData = $request->validate([
-            'id' => 'required|exists:songs,id', // Cambiar 'song' a 'songs' para reflejar la tabla plural
+            'id' => 'required|exists:song,id', 
         ]);
 
         // Buscar la canción por ID y eliminarla
