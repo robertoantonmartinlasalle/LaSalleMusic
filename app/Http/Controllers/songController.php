@@ -52,29 +52,44 @@ class SongController extends Controller
 
     // Actualiza una canción existente en la base de datos
     public function update(Request $request)
-{
-    // Validar los datos enviados desde el formulario
-    $validatedData = $request->validate([
-        'id' => 'required|exists:song,id', // Cambiar a la tabla correcta en singular
-        'title' => 'required|string|max:255',
-        'group' => 'required|string|max:255',
-        'style' => 'required|string|max:50',
-        'rating' => 'required|integer|min:1|max:10',
-    ]);
+    {
+        // Validar los datos enviados desde el formulario
+        $validatedData = $request->validate([
+            'id' => 'required|exists:song,id', // Cambiar a la tabla correcta en singular
+            'title' => 'required|string|max:255',
+            'group' => 'required|string|max:255',
+            'style' => 'required|string|max:50',
+            'rating' => 'required|integer|min:1|max:10',
+        ]);
 
-    // Buscar la canción por ID
-    $song = Song::findOrFail($validatedData['id']); // Encuentra la canción o lanza un error 404 si no existe
+        // Buscar la canción por ID
+        $song = Song::findOrFail($validatedData['id']); // Encuentra la canción o lanza un error 404 si no existe
 
-    // Actualizar la canción con los datos validados
-    $song->update([
-        'title' => $validatedData['title'],
-        'group' => $validatedData['group'],
-        'style' => $validatedData['style'],
-        'rating' => $validatedData['rating'],
-    ]);
+        // Actualizar la canción con los datos validados
+        $song->update([
+            'title' => $validatedData['title'],
+            'group' => $validatedData['group'],
+            'style' => $validatedData['style'],
+            'rating' => $validatedData['rating'],
+        ]);
 
-    // Redirigir a la página principal con un mensaje de éxito
-    return redirect('/home')->with('success', '¡Canción actualizada correctamente!');
-}
+        // Redirigir a la página principal con un mensaje de éxito
+        return redirect('/home')->with('success', '¡Canción actualizada correctamente!');
+    }
 
+    // Elimina una canción existente de la base de datos
+    public function destroy(Request $request)
+    {
+        // Validar el ID enviado desde el formulario
+        $validatedData = $request->validate([
+            'id' => 'required|exists:song,id', // Verifica que el ID exista en la tabla `song`
+        ]);
+
+        // Buscar la canción por ID y eliminarla
+        $song = Song::findOrFail($validatedData['id']); // Encuentra la canción o lanza un error 404 si no existe
+        $song->delete(); // Elimina la canción
+
+        // Redirigir a la página principal con un mensaje de éxito
+        return redirect('/home')->with('success', '¡Canción eliminada correctamente!');
+    }
 }
