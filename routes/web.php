@@ -11,4 +11,4 @@ Route::get('/update', [SongController::class, 'edit']); // Página de actualizar
 
 // Rutas para formularios
 Route::post('/add', [SongController::class, 'store']);
-Route::post('/update', [SongController::class, 'update']);
+Route::put('/update', [SongController::class, 'update']); // Cambiar a PUT para actualizar
