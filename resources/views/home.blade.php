@@ -39,8 +39,6 @@
         </div>
     </div>
 
-
-
     <h3>Lista de Canciones</h3>
     <table class="table table-striped table-hover">
         <thead class="table-dark">
@@ -54,6 +52,30 @@
             </tr>
         </thead>
         <tbody>
+            <!-- Fila para añadir una nueva canción -->
+            <tr>
+                <form action="/add" method="POST">
+                    @csrf
+                    <td>Nuevo</td>
+                    <td>
+                        <input type="text" name="title" class="form-control" placeholder="Título" required>
+                    </td>
+                    <td>
+                        <input type="text" name="group" class="form-control" placeholder="Grupo" required>
+                    </td>
+                    <td>
+                        <input type="text" name="style" class="form-control" placeholder="Estilo" required>
+                    </td>
+                    <td>
+                        <input type="number" name="rating" class="form-control" min="1" max="10" placeholder="Rating" required>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-sm btn-success">Añadir</button>
+                    </td>
+                </form>
+            </tr>
+
+            <!-- Canciones existentes -->
             @foreach($songs as $song)
                 <tr>
                     <td>{{ $song->id }}</td>
@@ -73,7 +95,6 @@
             @endforeach
         </tbody>
     </table>
-
 
     <!-- Enlaces de paginación -->
     <div class="d-flex justify-content-center mt-4">
