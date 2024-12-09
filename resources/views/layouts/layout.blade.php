@@ -38,6 +38,7 @@
                     <li class="mb-3"><a href="/home" class="text-white text-decoration-none"><i class="fas fa-home"></i> Inicio</a></li>
                     <li class="mb-3"><a href="/contact" class="text-white text-decoration-none"><i class="fas fa-envelope"></i> Contacto</a></li>
                     <li class="mb-3"><a href="/add" class="text-white text-decoration-none"><i class="fas fa-plus"></i> Añadir Canción</a></li>
+                    <li class="mb-3"><a href="/favorites" class="text-white text-decoration-none"><i class="fas fa-star"></i> Favoritos</a></li>
                     <li><a href="/update" class="text-white text-decoration-none"><i class="fas fa-edit"></i> Actualizar Canción</a></li>
                 </ul>
             </nav>

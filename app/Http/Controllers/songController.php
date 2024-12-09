@@ -99,4 +99,28 @@ class SongController extends Controller
         // Redirigir a la página principal con un mensaje de éxito
         return redirect('/home')->with('success', '¡Canción eliminada correctamente!');
     }
+
+    // Marca o desmarca una canción como favorita
+    public function toggleFavorite($id)
+    {
+        // Buscar la canción por ID
+        $song = Song::findOrFail($id);
+
+        // Cambiar el estado de favorito
+        $song->is_favorite = !$song->is_favorite;
+        $song->save();
+
+        // Redirigir a la página principal con un mensaje de éxito
+        return redirect('/home')->with('success', 'El estado de favorito ha sido actualizado.');
+    }
+
+    // Lista las canciones marcadas como favoritas
+    public function favorites()
+    {
+        // Obtener todas las canciones marcadas como favoritas
+        $favorites = Song::where('is_favorite', true)->get();
+
+        // Pasar las canciones favoritas a la vista de favoritos
+        return view('favorites', compact('favorites'));
+    }
 }

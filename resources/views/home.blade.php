@@ -48,6 +48,7 @@
                 <th>Grupo</th>
                 <th>Estilo</th>
                 <th>Rating</th>
+                <th>Favorito</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -69,6 +70,7 @@
                     <td>
                         <input type="number" name="rating" class="form-control" min="1" max="10" placeholder="Rating" required>
                     </td>
+                    <td>—</td> <!-- Sin checkbox para la fila de añadir -->
                     <td>
                         <button type="submit" class="btn btn-sm btn-success">Añadir</button>
                     </td>
@@ -83,6 +85,18 @@
                     <td>{{ $song->group }}</td>
                     <td>{{ $song->style }}</td>
                     <td>{{ $song->rating }}</td>
+                    <td>
+                        <!-- Checkbox para marcar como favorito -->
+                        <form action="{{ route('song.toggleFavorite', $song->id) }}" method="GET">
+                            <input 
+                                type="checkbox" 
+                                class="form-check-input" 
+                                onchange="this.form.submit()" 
+                                {{ $song->is_favorite ? 'checked' : '' }}
+                            >
+                        </form>
+
+                    </td>
                     <td>
                         <a href="/update/{{ $song->id }}" class="btn btn-sm btn-primary">Editar</a>
                         <form action="/delete" method="POST" class="d-inline">

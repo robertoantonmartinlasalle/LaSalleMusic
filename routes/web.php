@@ -14,3 +14,10 @@ Route::post('/delete', [SongController::class, 'destroy']); // Página para elim
 // Rutas para formularios
 Route::post('/add', [SongController::class, 'store']);
 Route::put('/update', [SongController::class, 'update']); // Cambiar a PUT para actualizar
+
+// Ruta para alternar el estado de favorito
+Route::get('/favorite/{id}', [SongController::class, 'toggleFavorite'])->name('song.toggleFavorite');
+
+// Ruta para mostrar la lista de favoritos
+Route::get('/favorites', [SongController::class, 'favorites'])->name('favorites');
+
