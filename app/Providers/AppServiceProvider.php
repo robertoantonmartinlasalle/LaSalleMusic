@@ -20,6 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Paginator::useBootstrap(); // Habilitar estilos de Bootstrap
+        Paginator::useBootstrap(); // Habilitar estilos de Bootstrap para añadir la paginación personalizada
     }
 }
