@@ -1,36 +1,64 @@
 @extends('layouts.layout')
 
 @section('content')
-    <h2>Actualizar Canción</h2>
+<div class="container mt-5">
+    <!-- Título principal -->
+    <h2 class="text-center mb-4">Actualizar Canción</h2>
+
+    <!-- Mensaje de éxito -->
     @if(session('success'))
-        <div style="color: green;">{{ session('success') }}</div>
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
     @endif
 
-    <form action="/update" method="POST">
-        @csrf
-        @method('PUT')
+    <!-- Formulario para actualizar una canción -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form action="/update" method="POST">
+                @csrf
+                @method('PUT')
 
-        @if(isset($song))
-            <!-- Si se accede desde el botón "Editar", el campo ID es oculto -->
-            <input type="hidden" name="id" value="{{ $song->id }}">
-        @else
-            <!-- Si se accede desde el menú, el campo ID es visible -->
-            <label for="id">ID de la canción:</label>
-            <input type="text" name="id" id="id" required><br>
-        @endif
+                <!-- Campo para el ID (oculto si se pasa el objeto canción) -->
+                @if(isset($song))
+                    <input type="hidden" name="id" value="{{ $song->id }}">
+                @else
+                    <div class="mb-3">
+                        <label for="id" class="form-label">ID de la canción:</label>
+                        <input type="text" name="id" id="id" class="form-control" placeholder="Introduce el ID de la canción" required>
+                    </div>
+                @endif
 
-        <label for="title">Nuevo Título:</label>
-        <input type="text" name="title" id="title" value="{{ $song->title ?? '' }}" required><br>
+                <!-- Campo para el nuevo título -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">Nuevo Título:</label>
+                    <input type="text" name="title" id="title" class="form-control" placeholder="Introduce el nuevo título" value="{{ $song->title ?? '' }}" required>
+                </div>
 
-        <label for="group">Nuevo Grupo:</label>
-        <input type="text" name="group" id="group" value="{{ $song->group ?? '' }}" required><br>
+                <!-- Campo para el nuevo grupo -->
+                <div class="mb-3">
+                    <label for="group" class="form-label">Nuevo Grupo:</label>
+                    <input type="text" name="group" id="group" class="form-control" placeholder="Introduce el nuevo grupo o artista" value="{{ $song->group ?? '' }}" required>
+                </div>
 
-        <label for="style">Nuevo Estilo:</label>
-        <input type="text" name="style" id="style" value="{{ $song->style ?? '' }}" required><br>
+                <!-- Campo para el nuevo estilo -->
+                <div class="mb-3">
+                    <label for="style" class="form-label">Nuevo Estilo:</label>
+                    <input type="text" name="style" id="style" class="form-control" placeholder="Introduce el nuevo estilo musical (ej: Rock, Blues)" value="{{ $song->style ?? '' }}" required>
+                </div>
 
-        <label for="rating">Nuevo Rating:</label>
-        <input type="number" name="rating" id="rating" value="{{ $song->rating ?? '' }}" min="1" max="10" required><br>
+                <!-- Campo para el nuevo rating -->
+                <div class="mb-3">
+                    <label for="rating" class="form-label">Nuevo Rating:</label>
+                    <input type="number" name="rating" id="rating" class="form-control" min="1" max="10" placeholder="Introduce el nuevo rating entre 1 y 10" value="{{ $song->rating ?? '' }}" required>
+                </div>
 
-        <button type="submit">Actualizar Canción</button>
-    </form>
+                <!-- Botón para actualizar la canción -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Actualizar Canción</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
